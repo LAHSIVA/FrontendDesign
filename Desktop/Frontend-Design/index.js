@@ -34,7 +34,7 @@ app.get('/todos',(req,res)=>{
 app.post('/todos',(req,res)=>{
     const newtodo=req.body;
     todos.push(newtodo);
-    res.json({
+    res.status(201).json({
         message:'new TODO Added!'
     });
 });
@@ -52,13 +52,17 @@ app.put('/todos/:id',(req,res)=>{
             id:todoparamId,
             ...newtododata,
         }
+        res.json({
+            message:`Todo Updated Successfully`
+        });
+    }else{
+        res.status(400).json({
+            message:`Todo ID Doesn't exist`
+        });
     }
-    res.json({
-        message:`Todo Updated Successfully`
-    })
 
 
-})
+});
 
 //Delete
 
