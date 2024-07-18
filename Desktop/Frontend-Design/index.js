@@ -62,6 +62,21 @@ app.put('/todos/:id',(req,res)=>{
 
 //Delete
 
+app.delete('/todos/:id',(req,res)=>{
+    const todoparamId=req.params.id;
+    const todoIndex=todos.findIndex(td=>td.id ===todoparamId);
+
+    if(todoIndex!==-1){
+        todos.splice(todoIndex,1);
+    }
+
+    res.json({
+        message:`Todo Deleted Successfully`
+    });
+
+
+});
+
 
 
 app.listen(PORT,()=>{
