@@ -1,6 +1,9 @@
 import express from 'express';
+import bodyParser from 'body-parser';
 
 const app=express();
+
+app.use(bodyParser.json());
 const PORT=3000;
 
 app.all(`/`,(req,res)=>{
@@ -28,7 +31,34 @@ app.get('/todos',(req,res)=>{
 
 //Create
 
+app.post('/todos',(req,res)=>{
+    const newtodo=req.body;
+    todos.push(newtodo);
+    res.json({
+        message:'new TODO Added!'
+    });
+});
+
 //Update
+
+app.put('/todos/:id',(req,res)=>{
+    const newtododata=req.body;
+    const todoparamId=req.params.id;
+
+    const todoIndex=todos.findIndex(td=>td.id ===todoparamId);
+
+    if (todoIndex !== -1){
+        todos[todoIndex]={
+            id:todoparamId,
+            ...newtododata,
+        }
+    }
+    res.json({
+        message:`Todo Updated Successfully`
+    })
+
+
+})
 
 //Delete
 
